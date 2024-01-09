@@ -32,3 +32,12 @@ export const postNewAdmin = (data) => {
     return userAPI()
 }
 
+export const postVerifyEmail = (data) => {
+    return apiProccessor({
+        method: 'post',
+        url: userAPI + "/verify-email",
+        data,
+    })
+    return userAPI()
+}
+
