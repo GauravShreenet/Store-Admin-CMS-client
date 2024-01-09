@@ -15,7 +15,7 @@ function App() {
         <Route path="/" element={<SignIn />} />
 
         {/* private route */}
-        <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/admin-sign-up" element={<SignUp />} />
       </Routes>
       <ToastContainer />
     </div>

@@ -2,6 +2,7 @@ import { Button, Form } from "react-bootstrap"
 import { CustomInput } from "../../component/custom-input/CustomInput"
 import { useState } from "react"
 import { toast } from "react-toastify";
+import { postNewAdmin } from "../../helper/axiosHelper";
 
 const SignUp = () => {
 
@@ -30,14 +31,23 @@ const SignUp = () => {
         })
     }
 
-    const handleOnSubmit = (e) => {
+    const handleOnSubmit = async(e) => {
         e.preventDefault();
-        const {confimPassword, ...rest} = form
-        if(confimPassword !== rest.password) {
+        const {confirmPassword, ...rest} = form
+        if(confirmPassword !== rest.password) {
             toast.error("Password do not match");
             return;
         }
+        const userPending = postNewAdmin(rest);
 
+        toast.promise(userPending, {
+            pending: "Please wait...",
+            // success: "We have sent you an email with instruction to verifu your email. Please check your inbox/spam and follow the instruciton.",
+            // error: "Error! Unable to process your request please contact admin",
+        })
+
+        const {status, message} = await userPending;
+        toast[status](message);
     }
 
     const input = [
