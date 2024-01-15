@@ -3,12 +3,19 @@ import axios from 'axios';
 const rootAPI = import.meta.env.VITE_ROOT_API
 const userAPI = rootAPI + "/users"
 
-const apiProccessor = async({method, url, data}) => {
+const getAccessJWT = () => {
+    return sessionStorage.getItem("accessJWT")
+}
+const apiProccessor = async({method, url, data, isPrivate}) => {
     try {
+        const headers = {
+            Authorization: isPrivate ? getAccessJWT() : null
+        }
         const response = await axios({
             method,
             url,
             data,
+            headers,
         })
 
         return response.data;
@@ -29,7 +36,6 @@ export const postNewAdmin = (data) => {
         url: userAPI,
         data,
     })
-    return userAPI()
 }
 
 export const postVerifyEmail = (data) => {
@@ -38,6 +44,21 @@ export const postVerifyEmail = (data) => {
         url: userAPI + "/verify-email",
         data,
     })
-    return userAPI()
+}
+
+export const postSignIn = (data) => {
+    return apiProccessor({
+        method: 'post',
+        url: userAPI + "/sign-in",
+        data,
+    })
+}
+
+export const fetchAUser = (data) => {
+    return apiProccessor({
+        method: 'get',
+        url: userAPI,
+        isPrivate: true,
+    })
 }
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Alert, Spinner } from "react-bootstrap"
+import { Alert, Button, Spinner } from "react-bootstrap"
 import { useSearchParams } from "react-router-dom"
 import { postVerifyEmail } from "../../helper/axiosHelper";
 
@@ -21,8 +21,8 @@ const VerifyEmail = () => {
         userEmailVerificaiton();
     }, [])
 
-    const userEmailVerificaiton = async() => {
-        const response = await postVerifyEmail({associate, token})
+    const userEmailVerificaiton = async () => {
+        const response = await postVerifyEmail({ associate, token })
         setShowSpinner(false)
         setResp(response)
     }
@@ -44,8 +44,12 @@ const VerifyEmail = () => {
                     {resp.message}
                 </Alert>
             }
-
-
+            {
+                resp.status === "success" && <a href="/"><Button className="d-flex justify-content-center">
+                    Login Now
+                </Button></a>
+                
+            }
 
         </div>
     )
