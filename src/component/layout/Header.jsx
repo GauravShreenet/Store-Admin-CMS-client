@@ -5,26 +5,29 @@ import Navbar from "react-bootstrap/Navbar";
 import { Link, useNavigate } from "react-router-dom";
 // import { logoutAdmin } from "../../helper/axios";
 import { useDispatch, useSelector } from "react-redux";
-// import { setAdmin } from "../../pages/signin-signup/adminSlice";
+import { setAdmin } from "../../pages/profile/userSlice";
+import { logoutUser } from "../../helper/axiosHelper";
+
 
 export const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-//   const { admin } = useSelector((state) => state.adminInfo);
-//   const handleOnLogout = () => {
-//     // log out from server by removing the access and refresh JWTs
+  const { admin } = useSelector((state) => state.adminInfo);
+  
+  const handleOnLogout = () => {
+    // log out from server by removing the access and refresh JWTs
 
-//     logoutAdmin(admin._id);
+     logoutUser(admin._id);
 
-//     //clear storages
-//     localStorage.removeItem("refreshJWT");
-//     sessionStorage.removeItem("accessJWT");
+    //clear storages
+    localStorage.removeItem("refreshJWT");
+    sessionStorage.removeItem("accessJWT");
 
-//     // reset store
-//     dispatch(setAdmin({}));
-//     navigate("/");
-//   };
+    // reset store
+    dispatch(setAdmin({}));
+    navigate("/");
+  };
   return (
     <div>
       <Navbar expand="md" variant="dark" className="bg-dark">
@@ -40,7 +43,7 @@ export const Header = () => {
                   <Link to="/dashboard" className="nav-link">
                     Dashboard
                   </Link>
-                  <Link to="#!" className="nav-link" >
+                  <Link to="#!" className="nav-link" onClick={handleOnLogout}>
                     Sign Out
                   </Link>
                 </>

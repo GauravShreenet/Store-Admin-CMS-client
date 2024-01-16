@@ -13,7 +13,7 @@ export const AdminLayout = ({children, title}) => {
         {/* main area */}
         <main className="main">
             {/* header */}
-            {/* <Header /> */}
+            <Header />
             <Container>
                 <div className="mt-3">
                     <h3>{title}</h3>

@@ -6,10 +6,14 @@ const userAPI = rootAPI + "/users"
 const getAccessJWT = () => {
     return sessionStorage.getItem("accessJWT")
 }
-const apiProccessor = async({method, url, data, isPrivate}) => {
+const getRefreshJWT = () => {
+    return localStorage.getItem("refreshJWT")
+}
+const apiProccessor = async({method, url, data, isPrivate, refreshToken}) => {
     try {
+        const token = refreshToken ? getRefreshJWT() : getAccessJWT()
         const headers = {
-            Authorization: isPrivate ? getAccessJWT() : null
+            Authorization: isPrivate ? token : null
         }
         const response = await axios({
             method,
@@ -21,6 +25,16 @@ const apiProccessor = async({method, url, data, isPrivate}) => {
         return response.data;
 
     } catch (error) {
+
+        if(error.response?.data?.message.includes("jwt expired")){
+            const { accessJWT } = await fetchNewAccessJWT();
+            if(accessJWT) {
+                sessionStorage.setItem("accessJWT", accessJWT);
+                return apiProccessor({method, url, data, isPrivate, refreshToken});
+            }
+            
+
+        }
         return {
             status: 'error',
             message: error.message,
@@ -61,4 +75,47 @@ export const fetchAUser = (data) => {
         isPrivate: true,
     })
 }
+
+//request new accessJWT
+export const fetchNewAccessJWT = (data) => {
+    return apiProccessor({
+        method: 'get',
+        url: userAPI + "/get-accessjwt",
+        isPrivate: true,
+        refreshToken: true,
+    })
+}
+
+export const logoutUser = (_id) => {
+    return apiProccessor({
+        method: 'post',
+        url: userAPI + "/logout",
+        data: {
+            _id,
+            accessJWT: getAccessJWT(),
+            refreshToken: getRefreshJWT(),
+        },
+    })
+}
+
+//request OTP
+export const requestOTP = (email) => {
+    return apiProccessor({
+        method: 'post',
+        url: userAPI + "/request-otp",
+        data: {
+            email,
+        },
+    })
+}
+
+//update password
+export const resetPassword = (data) => {
+    return apiProccessor({
+        method: 'patch',
+        url: userAPI,
+        data,
+    })
+}
+
 

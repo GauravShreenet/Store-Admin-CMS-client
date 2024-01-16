@@ -3,7 +3,7 @@ import { Button, Form } from "react-bootstrap"
 import { CustomInput } from "../../component/custom-input/CustomInput";
 import { postSignIn } from "../../helper/axiosHelper";
 import { toast } from "react-toastify";
-import { getUserProfile } from "../profile/userAction";
+import { autoLogin, getUserProfile } from "../profile/userAction";
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -17,7 +17,8 @@ const SignIn = () => {
   const { admin } = useSelector((state) => state.adminInfo)
 
   useEffect(()=>{
-    admin?._id && navigate("/dashboard")
+    admin?._id && navigate("/dashboard");
+    dispatch(autoLogin())
   }, [admin?._id])
 
 
@@ -79,6 +80,10 @@ const SignIn = () => {
             }
             <div className="d-grid">
                 <Button type="submit">Login</Button>
+            </div>
+
+            <div className="mt-4 text-end">
+              Forget Password? <a href="/reset-password">Reset</a> Now.
             </div>
         </Form>
         
