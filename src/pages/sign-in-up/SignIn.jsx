@@ -19,7 +19,7 @@ const SignIn = () => {
   useEffect(()=>{
     admin?._id && navigate("/dashboard");
     dispatch(autoLogin())
-  }, [admin?._id])
+  }, [admin?._id, navigate])
 
 
   const handleOnSubmit = async(e) => {

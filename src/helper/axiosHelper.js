@@ -118,4 +118,12 @@ export const resetPassword = (data) => {
     })
 }
 
+export const updatePassword = (data) => {
+    return apiProccessor({
+        method: 'patch',
+        url: userAPI + "/password",
+        data,
+        isPrivate: true,
+    })
+}
 

@@ -54,7 +54,7 @@ export const SideBar = () => {
           </li>
           <hr />
           <li>
-            <Link className="nav-link" to="/profile">
+            <Link className="nav-link" to="/my-profile">
               <AiFillProfile className="fs-4" /> Profile
             </Link>
           </li>
