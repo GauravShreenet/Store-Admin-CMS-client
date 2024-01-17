@@ -139,7 +139,7 @@ export const fetchCategories = () => {
 }
 
 // post categories
-export const postCategories = () => {
+export const postCategories = (data) => {
     return apiProccessor({
         method: 'post',
         url: catAPI,

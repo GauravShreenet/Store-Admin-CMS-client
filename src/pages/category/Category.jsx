@@ -7,7 +7,7 @@ const Category = () => {
   return <AdminLayout title="Category">
         {/* form here */}
         <div>
-          form here
+          <h4>Add new category</h4>
           <CustomTable />
         </div>
   </AdminLayout>
