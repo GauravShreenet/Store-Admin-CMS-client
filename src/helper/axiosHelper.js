@@ -2,6 +2,7 @@ import axios from 'axios';
 
 const rootAPI = import.meta.env.VITE_ROOT_API
 const userAPI = rootAPI + "/users"
+const catAPI = rootAPI + "/categories"
 
 const getAccessJWT = () => {
     return sessionStorage.getItem("accessJWT")
@@ -122,6 +123,26 @@ export const updatePassword = (data) => {
     return apiProccessor({
         method: 'patch',
         url: userAPI + "/password",
+        data,
+        isPrivate: true,
+    })
+}
+
+// =========== categories
+// get categories
+export const fetchCategories = () => {
+    return apiProccessor({
+        method: 'get',
+        url: catAPI,
+        isPrivate: true,
+    })
+}
+
+// post categories
+export const postCategories = () => {
+    return apiProccessor({
+        method: 'post',
+        url: catAPI,
         data,
         isPrivate: true,
     })
