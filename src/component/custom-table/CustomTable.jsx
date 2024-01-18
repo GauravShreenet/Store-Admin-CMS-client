@@ -3,6 +3,9 @@ import Table from 'react-bootstrap/Table';
 import { useSelector } from 'react-redux';
 
 export const CustomTable = () => {
+
+  const { catList } = useSelector((state) => state.catInfo)
+
   return (
     <Table striped>
       <thead>
@@ -16,16 +19,23 @@ export const CustomTable = () => {
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>1</td>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-          <td>@mdo</td>
-          <td>
-            <Button variant='warning'>Edit</Button>
-          </td>
-        </tr>
+        {
+          catList.map(({ _id, title, status, slug, createdAt }, i) => (
+            <tr key={_id}>
+              <td>{i + 1}</td>
+              <td
+                className={status === "active" ? "text-success" : "text-danger"}
+              >{status}</td>
+              <td>{title}</td>
+              <td>{slug}</td>
+              <td>{createdAt?.slice(0, 10)}</td>
+              <td>
+                <Button variant='warning'>Edit</Button>
+              </td>
+            </tr>
+          ))
+        }
+
       </tbody>
     </Table>
   );
