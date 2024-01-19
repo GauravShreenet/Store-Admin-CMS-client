@@ -119,10 +119,21 @@ export const resetPassword = (data) => {
     })
 }
 
+
 export const updatePassword = (data) => {
     return apiProccessor({
         method: 'patch',
         url: userAPI + "/password",
+        data,
+        isPrivate: true,
+    })
+}
+
+//update user profile
+export const updateProfile = (data) => {
+    return apiProccessor({
+        method: 'patch',
+        url: userAPI + "/user-profile",
         data,
         isPrivate: true,
     })

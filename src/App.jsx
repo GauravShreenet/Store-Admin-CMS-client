@@ -20,6 +20,7 @@ import { useDispatch } from 'react-redux';
 import { getAllCats } from './pages/category/categoryAction';
 import { useEffect } from 'react';
 import { UpdateCategory } from './component/update/UpdateCategory';
+import { getUserProfile } from './pages/profile/userAction';
 
 function App() {
   const dispatch = useDispatch();
