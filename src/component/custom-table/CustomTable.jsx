@@ -1,6 +1,7 @@
 import { Button } from 'react-bootstrap';
 import Table from 'react-bootstrap/Table';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 export const CustomTable = () => {
 
@@ -30,7 +31,9 @@ export const CustomTable = () => {
               <td>{slug}</td>
               <td>{createdAt?.slice(0, 10)}</td>
               <td>
-                <Button variant='warning'>Edit</Button>
+                <Link to={`/update-category/${_id}`}>
+                  <Button variant='warning'>Edit</Button>
+                </Link>
               </td>
             </tr>
           ))

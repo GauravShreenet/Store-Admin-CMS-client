@@ -19,7 +19,7 @@ const Category = () => {
       const title = titleRef.current.value;
       if(!title) {
         return toast.error("Missing title");
-      }
+      } 
 
       dispatch(postNewCat({ title }));
     }

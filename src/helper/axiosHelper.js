@@ -130,10 +130,10 @@ export const updatePassword = (data) => {
 
 // =========== categories
 // get categories
-export const fetchCategories = () => {
+export const fetchCategories = (_id) => {
     return apiProccessor({
         method: 'get',
-        url: catAPI,
+        url: _id ? catAPI + "/" + _id : catAPI,
         isPrivate: true,
     })
 }
@@ -144,6 +144,25 @@ export const postCategories = (data) => {
         method: 'post',
         url: catAPI,
         data,
+        isPrivate: true,
+    })
+}
+
+// update category
+export const updateCategories = (data) => {
+    return apiProccessor({
+        method: 'put',
+        url: catAPI,
+        data,
+        isPrivate: true,
+    })
+}
+
+//delete category
+export const deleteCategories = (_id) => {
+    return apiProccessor({
+        method: 'delete',
+        url: catAPI + "/" + _id,
         isPrivate: true,
     })
 }

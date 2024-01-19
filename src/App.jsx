@@ -19,6 +19,7 @@ import PasswordReset from './pages/sign-in-up/PasswordReset';
 import { useDispatch } from 'react-redux';
 import { getAllCats } from './pages/category/categoryAction';
 import { useEffect } from 'react';
+import { UpdateCategory } from './component/update/UpdateCategory';
 
 function App() {
   const dispatch = useDispatch();
@@ -50,6 +51,11 @@ function App() {
         <Route path="/category" element={
           <PrivateRout>
             <Category />
+          </PrivateRout>
+        } />
+        <Route path='/update-category/:_id' element={
+          <PrivateRout>
+            <UpdateCategory />
           </PrivateRout>
         } />
         <Route path="/product" element={
