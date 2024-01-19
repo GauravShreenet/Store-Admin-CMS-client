@@ -39,7 +39,12 @@ export const UpdateCategory = () => {
         }        
     }
 
-    
+    const handleOnDelete = async() => {
+        if(window.confirm("Are you sure you want to delete the category?")){
+            const isDelete = await dispatch(deleteCat(_id))
+            isDelete && navigate("/category");
+        }
+    }
 
 
     const inputs = [
@@ -99,7 +104,9 @@ export const UpdateCategory = () => {
             </Form>
 
             <div className="d-grid mb-2">
-                <Button variant='danger'>
+                <Button 
+                onClick={handleOnDelete}
+                variant='danger'>
                     Delete Category
                 </Button>
             </div>
