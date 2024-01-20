@@ -39,7 +39,7 @@ export const SideBar = () => {
           </li>
           <li>
             <Link className="nav-link" to="/order">
-              <PiVan className="fs-4" /> Oreder
+              <PiVan className="fs-4" /> Order
             </Link>
           </li>
           <li>
