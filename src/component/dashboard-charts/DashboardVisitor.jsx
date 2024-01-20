@@ -30,9 +30,9 @@ export const DashboardVisitor = () => {
                 <Pie
                     data={data}
                     dataKey="value"
-                    cx="50%"
+                    cx="48%"
                     cy="50%"
-                    outerRadius={100}
+                    outerRadius={105}
                     fill="#8884d8"
                     label={renderCustomizedLabel}
                     labelLine={false}
@@ -45,7 +45,8 @@ export const DashboardVisitor = () => {
                 </Pie>
             </PieChart>
             <div className="d-flex justify-content-around">
-            <span><FaCircle className="text-danger fs-5 me-1"/>Register</span><span><FaCircle className="text-primary fs-5 me-1"/>Not-Register</span>
+                <span><FaCircle className="text-danger fs-5 me-1" />Register</span>
+                <span><FaCircle className="text-primary fs-5 me-1" />Not-Register</span>
             </div>
         </div>
     );

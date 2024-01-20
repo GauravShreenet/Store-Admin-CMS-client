@@ -4,6 +4,7 @@ import { DashboardSales } from '../../component/dashboard-charts/DashboardSales'
 import { CustomCard } from '../../component/custom-card/CustomCard'
 import { DashboardVisitor } from '../../component/dashboard-charts/DashboardVisitor'
 import { Col, Row } from 'react-bootstrap'
+import { DashboardGoals } from '../../component/dashboard-charts/DashboardGoals'
 
 const Dashboard = () => {
 
@@ -25,12 +26,12 @@ const Dashboard = () => {
       additionalContent: <DashboardVisitor />
     },
     {
-      title: "Visitor",
+      title: "Sales Goals",
       linkTo: "/customer",
       linkText: "All Visitor",
-      average: "1.245",
-      description: "Web Visitor",
-      additionalContent: <DashboardVisitor />
+      average: "$32,000",
+      description: "Sales Goals",
+      additionalContent: <DashboardGoals />
     },
 
   ]

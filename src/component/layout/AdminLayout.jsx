@@ -14,7 +14,7 @@ export const AdminLayout = ({children, title}) => {
         <main className="main">
             {/* header */}
             <Header />
-            <Container>
+            <Container fluid>
                 <div className="mt-3">
                     <h3>{title}</h3>
                     <hr />
