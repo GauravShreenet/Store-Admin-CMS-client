@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Button, Form } from 'react-bootstrap';
 import { CustomInput } from '../custom-input/CustomInput';
 import { getUserProfile } from '../../pages/profile/userAction';
-import { updateProfile } from '../../helper/axiosHelper';
+import { fetchAUser, updateProfile } from '../../helper/axiosHelper';
 import { toast } from 'react-toastify';
+import { setAdmin } from '../../pages/profile/userSlice';
 
 export const UpdateProfile = () => {
 
@@ -14,8 +15,8 @@ export const UpdateProfile = () => {
 
     const [form, setForm] = useState({});
 
-    useEffect(()=>{
-        setForm(admin)
+    useEffect(() => {
+        setForm({...admin, userPassword: ""})
     }, [admin])
 
     const handleOnChange = (e) => {
@@ -27,9 +28,9 @@ export const UpdateProfile = () => {
         console.log(form)
     }
 
-    const handleOnSubmit = async(e) => {
+    const handleOnSubmit = async (e) => {
         e.preventDefault();
-        const {email, ...rest} = form;
+        const { email, ...rest } = form;
         const pending = updateProfile(rest);
         toast.promise(pending, {
             pending: "Please Wait..."
@@ -37,7 +38,17 @@ export const UpdateProfile = () => {
 
         const { status, message } = await pending
         toast[status](message)
-
+        if (status === "success") {
+            
+            dispatch(setAdmin(form))
+            console.log("first")
+            setForm({
+                ...form,
+                userPassword: "",
+            })
+        }
+        
+        console.log(form.userPassword)
     }
 
     const inputs = [
@@ -80,22 +91,30 @@ export const UpdateProfile = () => {
             type: "text",
             value: form.address,
         },
+        {
+            label: 'Password',
+            name: 'userPassword',
+            placeholder: 'XXXXXXXXXX',
+            type: "password",
+            required: true,
+            value: form.userPassword,
+        }
     ]
 
-  return (
-    <div>
-        <Form
-        onSubmit={handleOnSubmit}
-        className='m-auto border rounded shadow-lg p-4 my-4' style={{width: '600px'}}>
-            {
-                inputs.map((item, i) => (<CustomInput key={i} {...item} onChange={handleOnChange}/>))
-            }
-            <div className="d-grid">
-                <Button type="submit" variant="danger">
-                    Update Profile
-                </Button>
-            </div>
-        </Form>
-    </div>
-  )
+    return (
+        <div>
+            <Form
+                onSubmit={handleOnSubmit}
+                className='m-auto border rounded shadow-lg p-4 my-4' style={{ width: '600px' }}>
+                {
+                    inputs.map((item, i) => (<CustomInput key={i} {...item} onChange={handleOnChange} />))
+                }
+                <div className="d-grid">
+                    <Button type="submit" variant="danger">
+                        Update Profile
+                    </Button>
+                </div>
+            </Form>
+        </div>
+    )
 }

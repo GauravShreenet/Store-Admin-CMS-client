@@ -1,16 +1,20 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { AdminLayout } from '../../component/layout/AdminLayout'
 import { CustomTable } from '../../component/custom-table/CustomTable'
 import { Button, Col, Form, Row } from 'react-bootstrap'
 import { useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
-import { postNewCat } from './categoryAction'
+import { getAllCats, postNewCat } from './categoryAction'
 
 
 const Category = () => {
 
   const titleRef = useRef("");
   const dispatch = useDispatch();
+
+  useEffect(()=>{
+    dispatch(getAllCats())
+  },[dispatch]);
 
   const handleOnSubmit = (e) => {
     e.preventDefault();

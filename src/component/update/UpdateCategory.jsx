@@ -19,7 +19,7 @@ export const UpdateCategory = () => {
     useEffect(()=>{
         if(_id !== form._id) {
            dispatch(getACat(_id))
-           setForm(selectedCat) 
+           setForm(selectedCat)
         }
     }, [_id, dispatch, selectedCat])
 
