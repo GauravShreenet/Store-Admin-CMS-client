@@ -4,9 +4,10 @@ import { PieChart, Pie, Cell, Label } from 'recharts';
 export const DashboardGoals = () => {
   const uvValue = 72;
   const totalValue = 100;
+  const amtValue = 24000
 
   const data = [
-    { name: 'Sales', uv: uvValue },
+    { name: 'Sales', uv: uvValue, amt: amtValue },
     { name: 'Empty', uv: totalValue - uvValue },
   ];
 
@@ -23,7 +24,6 @@ export const DashboardGoals = () => {
           endAngle={0}
           innerRadius={140}
           outerRadius={180}
-          cornerRadius={8}
           dataKey="uv"
         >
             {data.map((entry, index) => (
@@ -36,6 +36,13 @@ export const DashboardGoals = () => {
             fontSize={60} // Set the font size of the label
             fontWeight="bold"
             dy={-40}
+          />
+          <Label
+            value={`Sales: $${amtValue}`}
+            position="center"
+            fill="#333" // Set the color of the label
+            fontSize={20} // Set the font size of the label
+            dy={10}
           />
         </Pie>
       </PieChart>

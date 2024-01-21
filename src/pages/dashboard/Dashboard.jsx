@@ -38,10 +38,10 @@ const Dashboard = () => {
 
   return <AdminLayout title="Dashboard">
     <p>You can see all the sales analysis results more clearly and completely</p>
-    <Row>
+    <Row className='mx-5 mb-2'>
       {
         infos.map((item, i) => (
-          <Col lg={4} md={6} sm={12} key={i}>
+          <Col key={i}>
             <CustomCard {...item} />
           </Col>
         ))

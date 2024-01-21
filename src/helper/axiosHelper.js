@@ -27,7 +27,7 @@ const apiProccessor = async({method, url, data, isPrivate, refreshToken}) => {
 
     } catch (error) {
 
-        if(error.response?.data?.message.includes("jwt expired")){
+        if(error.response?.data?.message.toLowerCase().includes("jwt expired")){
             const { accessJWT } = await fetchNewAccessJWT();
             if(accessJWT) {
                 sessionStorage.setItem("accessJWT", accessJWT);

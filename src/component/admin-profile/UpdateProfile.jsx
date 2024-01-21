@@ -21,6 +21,7 @@ export const UpdateProfile = () => {
 
     const handleOnChange = (e) => {
         const { name, value } = e.target;
+        
         setForm({
             ...form,
             [name]: value,
