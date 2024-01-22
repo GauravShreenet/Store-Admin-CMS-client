@@ -1,7 +1,7 @@
 import { toast } from "react-toastify";
 // import { setACat, setCatList } from "./categorySlice";
 import { fetchProducts, postProducts } from "../../helper/axiosHelper";
-import { setProductList } from "./productSlice";
+import { setAProduct, setProductList } from "./productSlice";
 
 export const getAllProducts = () => async (dispatch) => {
   const { status, products } = await fetchProducts();
@@ -10,12 +10,12 @@ export const getAllProducts = () => async (dispatch) => {
   }
 };
 
-// export const getACat = (_id) => async(dispatch) => {
-//   const {status, categories} = await fetchCategories(_id)
-//   if(status === 'success') {
-//     dispatch(setACat(categories))
-//   }
-// }
+export const getAProduct = (_id) => async(dispatch) => {
+  const {status, products } = await fetchProducts(_id)
+  if(status === 'success') {
+    dispatch(setAProduct(products))
+  }
+}
 
 export const postNewProduct = (obj) => async (dispatch) => {
   const pending = postProducts(obj);

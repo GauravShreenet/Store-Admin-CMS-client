@@ -20,7 +20,9 @@ import { useDispatch } from 'react-redux';
 import { getAllCats } from './pages/category/categoryAction';
 import { useEffect } from 'react';
 import { UpdateCategory } from './component/update/UpdateCategory';
+
 import NewProduct from './pages/product/NewProduct';
+import { UpdateProduct } from './component/update/UpdateProduct';
 
 
 function App() {
@@ -69,6 +71,11 @@ function App() {
         <Route path="/add-product" element={
           <PrivateRout>
             <NewProduct />
+          </PrivateRout>
+        } />
+        <Route path='/update-product/:_id' element={
+          <PrivateRout>
+            <UpdateProduct />
           </PrivateRout>
         } />
         <Route path="/payment-option" element={

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const rootAPI = import.meta.env.VITE_ROOT_API
+const rootAPI = import.meta.env.VITE_SERVER_ROOT + "/api/v1"
 const userAPI = rootAPI + "/users"
 const catAPI = rootAPI + "/categories"
 const productAPI = rootAPI + "/products"
@@ -196,3 +196,12 @@ export const postProducts = (data) => {
         isPrivate: true,
     })
 }
+
+export const updateProduct = (data) => {
+    return apiProccessor({
+      method: "put",
+      url: productAPI,
+      isPrivate: true,
+      data,
+    });
+  };

@@ -34,10 +34,10 @@ export const ProductTable = () => {
       </thead>
       <tbody>
         {
-          productList.map(({ _id, name, status, parentCatId, slug, price, qty, salesPrice, salesStartDate, salesEndDate, createdAt }, i) => (
+          productList.map(({ _id, name, status, thumbnail, slug, price, qty, salesPrice, salesStartDate, salesEndDate, createdAt }, i) => (
             <tr key={_id}>
               <td>{i + 1}</td>
-              <td>{i + 1}</td>
+              <td><img width="100px" src={import.meta.env.VITE_SERVER_ROOT + thumbnail}/></td>
               <td
                 className={status === "active" ? "text-success" : "text-danger"}
               >{status}</td>
@@ -50,7 +50,7 @@ export const ProductTable = () => {
               <td>{salesEndDate?.slice(0, 10)}</td>
               <td>{createdAt?.slice(0, 10)}</td>
               <td>
-                <Link to={`/update-category/${_id}`}>
+                <Link to={`/update-product/${_id}`}>
                   <Button variant='warning'>Edit</Button>
                 </Link>
               </td>

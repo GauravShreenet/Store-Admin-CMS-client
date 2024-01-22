@@ -11,6 +11,7 @@ const NewProduct = () => {
 
     const dispatch = useDispatch();
     const [form, setForm] = useState({})
+    const [imgs, setImgs] = useState([])
 
 
     const { catList } = useSelector((state) => state.catInfo);
@@ -21,7 +22,21 @@ const NewProduct = () => {
 
     const handleOnSubmit = (e) => {
         e.preventDefault();
-        dispatch(postNewProduct(form))
+        
+        //combine data and file
+        const formDt = new FormData()
+
+        for(let key in form){
+            formDt.append(key, form[key]);
+        }
+
+        if (imgs.length) {
+            [...imgs].forEach((item) => {
+                formDt.append("images", item)
+            })
+        }
+
+        dispatch(postNewProduct(formDt))
     }
 
     const handleOnChange = (e) => {
@@ -31,6 +46,12 @@ const NewProduct = () => {
             [name]: value,
         })
     }
+
+    const handleOnImgAttached = (e) => {
+        const { files } = e.target;
+        setImgs(files)
+    }
+
 
     const input = [
         {
@@ -84,10 +105,10 @@ const NewProduct = () => {
             required: true,
             as: "textArea",
             rows: "5",
-            placeholder: "Enter the description"
-            
+            placeholder: "Enter the description"  
         },
     ]
+
   return (
     <AdminLayout>
         <Link to="/product"><Button variant='secondary'>&lt; Back </Button></Link>
@@ -97,6 +118,7 @@ const NewProduct = () => {
         <hr />
         <Form 
         onSubmit={handleOnSubmit} 
+        // encType='mult'
         className="m-auto border rounded shadow-lg p-4 my-5" style={{width: '600px'}}>
             <h3>New Product</h3>
             {/* make category available to select */}
@@ -118,6 +140,12 @@ const NewProduct = () => {
                     onChange={handleOnChange}
                     />))
             }
+
+            {/* handling the attachment */}
+            <Form.Group className='mb-3'>
+                <Form.Control type='file' name='img' required= {true} multiple
+                onChange={handleOnImgAttached}/>
+            </Form.Group>
 
             <div className="d-grid">
                 <Button type="submit">
