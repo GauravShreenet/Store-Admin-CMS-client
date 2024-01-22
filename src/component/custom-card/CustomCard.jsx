@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 
 export const CustomCard = ({title, linkTo, linkText, average, description, additionalContent }) => {
   return (
-    <Card className="p-3 mt-2 rounded-5 bg-transparent border border-secondary-subtle" style={{ width: '28rem' }}>
+    <Card className="p-3 mt-2 rounded-5 bg-transparent border border-secondary-subtle">
       <Card.Title className='d-flex justify-content-between'>{title} {linkTo && <Link to={linkTo}>{linkText}</Link>}</Card.Title>
       <hr />
       <Card.Body>

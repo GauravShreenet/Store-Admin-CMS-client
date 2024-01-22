@@ -22,7 +22,7 @@ export const DashboardSales = () => {
     ]
     return (
         <div>
-            <BarChart width={375} height={250} data={data} barSize={40}>
+            <BarChart width={350} height={250} data={data} barSize={40}>
                 <XAxis dataKey="name" padding={{ left: 10, right: 10 }}/>
                 <YAxis unit="K" ticks={[0, 100, 200, 300, 400]} />
                 <Bar dataKey="amt" fill='#4a3aff' />

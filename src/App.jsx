@@ -20,6 +20,7 @@ import { useDispatch } from 'react-redux';
 import { getAllCats } from './pages/category/categoryAction';
 import { useEffect } from 'react';
 import { UpdateCategory } from './component/update/UpdateCategory';
+import NewProduct from './pages/product/NewProduct';
 
 
 function App() {
@@ -63,6 +64,11 @@ function App() {
         <Route path="/product" element={
           <PrivateRout>
             <Product />
+          </PrivateRout>
+        } />
+        <Route path="/add-product" element={
+          <PrivateRout>
+            <NewProduct />
           </PrivateRout>
         } />
         <Route path="/payment-option" element={

@@ -18,7 +18,7 @@ export const DashboardGoals = () => {
       <PieChart width={400} height={250}>
         <Pie
           data={data}
-          cx="48%"
+          cx="50%"
           cy="80%"
           startAngle={180}
           endAngle={0}
