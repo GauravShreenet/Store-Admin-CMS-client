@@ -3,8 +3,8 @@ import { AdminLayout } from '../layout/AdminLayout'
 import { Button, Form } from 'react-bootstrap'
 import { CustomInput } from '../custom-input/CustomInput'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate, useParams } from 'react-router-dom'
-import { getAProduct } from '../../pages/product/productAction'
+import { Link, useNavigate, useParams } from 'react-router-dom'
+import { getAProduct, updateAProduct } from '../../pages/product/productAction'
 import { getAllCats } from '../../pages/category/categoryAction'
 
 
@@ -23,20 +23,19 @@ export const UpdateProduct = () => {
     const { catList } = useSelector((state) => state.catInfo);
 
     useEffect(() => {
-        dispatch(getAllCats())
-        if (_id !== form._id) {
-            dispatch(getAProduct(_id))
-            setForm(selectedProduct)
-        }
-    }, [_id, dispatch, selectedProduct])
+        dispatch(getAllCats());
+    _id !== form._id && dispatch(getAProduct(_id));
+
+    setForm(selectedProduct);
+  }, [dispatch, selectedProduct, _id]);
 
     const handleOnSubmit = (e) => {
         e.preventDefault();
 
-        const { createdAt, sku, slug, updateAt, __v, ...rest} = form;
+        const { createdAt, sku, slug, updatedAt, __v, ...rest } = form;
         const formDt = new FormData()
 
-        for(let key in rest){
+        for (let key in rest) {
             formDt.append(key, rest[key]);
         }
 
@@ -47,30 +46,37 @@ export const UpdateProduct = () => {
         }
 
         imgToDelete.length && formDt.append("imgToDelete", imgToDelete);
-        
-        dispatch(postNewProduct(formDt))
+
+        dispatch(updateAProduct(_id, formDt))
     }
 
+    console.log(form)
+
     const handleOnChange = (e) => {
-        let { name, value } = e.target;
+        const { name, value } = e.target;
         setForm({
             ...form,
             [name]: value,
         })
     }
 
+    const handleOnImgAttached = (e) => {
+        const { files } = e.target;
+        setImgs(files)
+    }
+
+
+    const handleOnDeleteImg = (e) => {
+        const { checked, value } = e.target;
     
-
-    const handleOnImgDelete = (e) => {
-        const {checked, value} = e.target
-
-        if(checked){
-            setImgToDelete([...imgToDelete, value])
-        }else{
-            setImgToDelete(imgToDelete.filter((url)=>url != value))
+        if (checked) {
+          //add to state
+          setImgToDelete([...imgToDelete, value]);
+        } else {
+          setImgToDelete(imgToDelete.filter((url) => url != value));
         }
         setImgToDelete;
-    }
+      };
 
     const handleOnDelete = async () => {
         if (window.confirm("Are you sure you want to delete the category?")) {
@@ -79,12 +85,7 @@ export const UpdateProduct = () => {
         }
     }
 
-    const handleOnImgAttached = (e) => {
-        const { files } = e.target;
-        setImgs(files)
-    }
-
-    console.log(form);
+    
 
     const inputs = [
         {
@@ -101,6 +102,14 @@ export const UpdateProduct = () => {
             disabled: true,
             placeholder: 'N-AM20',
             value: form.sku,
+        },
+        {
+            label: 'Slug',
+            name: 'slug',
+            required: true,
+            disabled: true,
+            placeholder: 'Nike-AirMax',
+            value: form.slug,
         },
         {
             label: 'Quantity',
@@ -138,7 +147,7 @@ export const UpdateProduct = () => {
             name: 'salesEndDate',
             type: "date",
             placeholder: '2024-01-12',
-            value: form.salesStartDate?.slice(0, 10) || "",
+            value: form.salesEndDate?.slice(0, 10) || "",
         },
         {
             label: 'Description',
@@ -153,10 +162,14 @@ export const UpdateProduct = () => {
 
     return (
         <AdminLayout title="Update Category">
+            <Link to="/product">
+                {" "}
+                <Button variant="secondary"> &lt; Back </Button>{" "}
+            </Link>
             <div>
                 <Form
                     onSubmit={handleOnSubmit}
-                    className="m-auto border rounded shadow-lg p-4 my-5" style={{ width: '600px' }}>
+                    className="m-auto border rounded shadow-lg p-4 my-5">
                     <h3>New Product</h3>
                     {/* make category available to select */}
 
@@ -180,21 +193,34 @@ export const UpdateProduct = () => {
 
                     <div className="d-flex gap-3 m-4">
                         {
-                            form?.images?.map((url)=>(
-                            <div key={url}>
-                                <div>
-                                    <input checked={url === form.thumbnail} type="radio" name='thumbnail' id={url} onChange={handleOnChange}
-                                    value={url}/> {" "}
-                                    <label htmlFor={url}>Make Thumbnail</label>
+                            form?.images?.map((url) => (
+                                <div key={url}>
+                                    <div>
+                                        <input
+                                            type="radio"
+                                            name="thumbnail"
+                                            id={url}
+                                            checked={url === form.thumbnail}
+                                            onChange={handleOnChange}
+                                            value={url}
+                                        />{" "}
+                                        <label htmlFor={url}>Make Thumbnail</label>
+                                    </div>
+                                    <img
+                                        className="img-thumbnail"
+                                        width={"150px"}
+                                        src={import.meta.env.VITE_SERVER_ROOT + url}
+                                    />
+                                    <div>
+                                        <input
+                                            type="checkbox"
+                                            id={url + 1}
+                                            onChange={handleOnDeleteImg}
+                                            value={url}
+                                        />{" "}
+                                        <label htmlFor={url + 1}>Delete </label>
+                                    </div>
                                 </div>
-                                <img width={"100px"} className='img-thumbnail' src={import.meta.env.VITE_SERVER_ROOT + url} />
-                                <div>
-                                    <input type="checkbox" id={url + 1} 
-                                    onChange={handleOnImgDelete}
-                                    value={url}/> {" "}
-                                    <label htmlFor={url + 1}>Delete </label>
-                                </div>
-                            </div>
                             ))
                         }
                     </div>
