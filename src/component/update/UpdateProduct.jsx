@@ -209,7 +209,7 @@ export const UpdateProduct = () => {
                                     <img
                                         className="img-thumbnail"
                                         width={"150px"}
-                                        src={import.meta.env.VITE_SERVER_ROOT + url}
+                                        src={url}
                                     />
                                     <div>
                                         <input

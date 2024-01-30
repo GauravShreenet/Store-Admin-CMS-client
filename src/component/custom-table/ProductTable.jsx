@@ -37,7 +37,7 @@ export const ProductTable = () => {
           productList.map(({ _id, name, status, thumbnail, slug, price, qty, salesPrice, salesStartDate, salesEndDate, createdAt }, i) => (
             <tr key={_id}>
               <td>{i + 1}</td>
-              <td><img width="100px" src={import.meta.env.VITE_SERVER_ROOT + thumbnail}/></td>
+              <td><img width="100px" src={thumbnail}/></td>
               <td
                 className={status === "active" ? "text-success" : "text-danger"}
               >{status}</td>
